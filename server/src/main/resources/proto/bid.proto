@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.example.grpc;
+option java_outer_classname = "BiddingModel";
+
+message BidRequest {
+  string userId = 1;
+  double bidPrice = 2;
+}
+
+message BidResponse {
+  bool success = 1;
+  string message = 2;
+  double highestBid = 3;
+}
+
+service BidService {
+  // 1:1
+  rpc bidding(BidRequest) returns (BidResponse);
+  // 1:N
+  rpc winBidding(BidRequest) returns (stream BidResponse);
+  // N:1
+  rpc clientBidding(stream BidRequest) returns (BidResponse);
+  // N:N
+  rpc streamBidding(stream BidRequest) returns (stream BidResponse);
+}

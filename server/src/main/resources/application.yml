@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: gRpc_server
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          producer-properties:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+          consumer-properties:
+            key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            max.poll.records: 1
+            max.poll.interval.ms: 600000
+            auto.offset.reset: latest
+server:
+  port: 8080
+grpc:
+  port: 8888
